@@ -1,0 +1,4 @@
+1.引擎  CrossApp1.1.2版本
+2.修改	CAPageView		需添加默认构造函数
+3.修改  CAScrollView    需添加默认构造函数
+4.修改	CATextField		.h和.cpp使用的是1.1.5版本的
