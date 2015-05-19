@@ -146,7 +146,7 @@ void UI_MainView1::SetRollView()
 	}
 
 	m_pageView = Base_PageView::creat(CCRect(_dSize.width/2,_dSize.height/2,_dSize.width,_dSize.height),
-		CAPageView::CAPageViewDirectionHorizontal);
+		CAPageViewDirectionHorizontal);
 	m_pageView->SetPageViews(_temp);
 	m_pageView->SetAutoScroll(true);
 	this->getView()->addSubview(m_pageView);
