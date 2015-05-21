@@ -265,9 +265,6 @@ void UI_GoodsView::CallBack_btnBuy(CAControl *sender, CCPoint pos)
 {
 	
 	presentModalViewController(Base_WebViewController::creat(m_goodsLink),true);
-// 	CAWebView* web = CAWebView::createWithFrame(FitRect(0, 0, 640, 960));
-// 	web->loadURL(m_goodsLink);
-// 	this->getView()->addSubview(web);
 }
 void UI_GoodsView::SetScrollView(const vector<std::string>& banner,int& height)
 {

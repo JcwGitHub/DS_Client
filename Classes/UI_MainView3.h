@@ -11,5 +11,7 @@ public:
 protected:
 private:
 	bool init();
+
+	virtual void viewDidLoad();
 };
 #endif

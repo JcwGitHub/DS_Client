@@ -93,9 +93,9 @@ static const char URL_SerchList[] = "SerchList.ashx";
 static const char URL_ShopDetails[] = "Shopdetails.ashx";
 
 //资源
-static std::string Res_M_Tab_N[5] = { "image/a-2.png", "image/b-2.png", "image/c-2.png", "image/d-2.png", "image/e-2.png" };
-static std::string Res_M_Tab_P[5] = { "image/a-1.png", "image/b-1.png", "image/c-1.png", "image/d-1.png", "image/e-1.png" };
-static std::string Res_M_Tab_T[5] = { UTF8("首页"), UTF8("分类"), UTF8("淘宝"), UTF8("积分"), UTF8("我的") };
+static std::string Res_M_Tab_N[5] = { "image/a-2.png", "image/b-2.png", "image/c-2.png", "image/e-2.png", "image/e-2.png" };
+static std::string Res_M_Tab_P[5] = { "image/a-1.png", "image/b-1.png", "image/c-1.png", "image/e-1.png", "image/e-1.png" };
+static std::string Res_M_Tab_T[5] = { UTF8("首页"), UTF8("分类"), UTF8("淘宝"), UTF8("我的"), UTF8("积分") };
 
 
 

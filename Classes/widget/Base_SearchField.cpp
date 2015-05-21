@@ -61,37 +61,37 @@ bool Base_SearchField::init(const CCRect& rect)
 bool Base_SearchField::onTextFieldAttachWithIME(CATextField * sender)
 {
 	ShowAllInfo();
-	return false;
+	return true;
 }
 
 bool Base_SearchField::onTextFieldDetachWithIME(CATextField * sender)
 {
 	//hideAllInfo();
-	return false;
+	return true;
 }
 
-bool Base_SearchField::onTextFieldInsertText(CATextField * sender, const char * text, int nLen)
-{
-
-	return false;
-}
-
-bool Base_SearchField::onTextFieldDeleteBackward(CATextField * sender, const char * delText, int nLen)
-{
-
-	return false;
-}
+// bool Base_SearchField::onTextFieldInsertText(CATextField * sender, const char * text, int nLen)
+// {
+// 
+// 	return false;
+// }
+// 
+// bool Base_SearchField::onTextFieldDeleteBackward(CATextField * sender, const char * delText, int nLen)
+// {
+// 
+// 	return false;
+// }
 
 bool Base_SearchField::keyBoardCallBack(CATextField *sender)
 {
 	//确认搜索
-	std::string _key = sender->getText();
+	std::string _key = ""/*sender->getText()*/;
 	
 	//添加本地
 	Data_Base::GetInstance()->PushSearch(_key);
 
 	this->Callback_Chose(_key);
-	return false;
+	return true;
 }
 
 void Base_SearchField::SetSearchLogo(E_Logo_P position)
@@ -234,7 +234,12 @@ bool Base_SearchInfo::initWithFrame(const CCRect& rect)
 	//search数据
 	Data_Base::GetInstance()->GetSearch(m_hotKey[0]);
 
-	m_tableView = Base_TableView::creat(CCRect(0, _px(98-3), FitX(640), getBounds().size.height - FitY(98)));
+	//添加导航背景
+	Base_View* _bg = Base_View::createWithFrame(CCRect(0, 0, FitX(640), _px(88)), CAColor_red);
+	this->addSubview(_bg);
+
+
+	m_tableView = Base_TableView::creat(CCRect(0, _px(88), FitX(640), getBounds().size.height - FitY(98)));
 	m_tableView->setTableViewDataSource(this);
 	m_tableView->setTableViewDelegate(this);
 	this->addSubview(m_tableView);

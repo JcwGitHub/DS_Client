@@ -6,6 +6,7 @@
 #include "UI_LeftView.h"
 #include "UI_MainViewContor.h"
 #include "RootWindow.h"
+#include "UI_MainView4.h"
 
 
 
@@ -33,11 +34,15 @@ bool UI_MainTabBar::init()
 	//第三个页面
 	Base_NavBar* bar3 = Base_NavBar::create();
 	bar3->initWithRootViewController(UI_MainView3::create());
+
+	//第四个页面
+	Base_NavBar* bar4 = Base_NavBar::create();
+	bar4->initWithRootViewController(UI_MainView4::create());
 	
 	vec.push_back(_viewController);
 	vec.push_back(bar2);
 	vec.push_back(bar3);
-
+	vec.push_back(bar4);
 
 	CATabBarController::initWithViewControllers(vec);
 	return true;

@@ -1,20 +1,20 @@
-﻿#include "UI_MainView3.h"
+﻿#include "UI_MainView4.h"
 
-bool UI_MainView3::init()
+bool UI_MainView4::init()
 {
 	this->getView()->setColor(CAColor_white);
 	return true;
 }
 
-void UI_MainView3::viewDidLoad()
+void UI_MainView4::viewDidLoad()
 {
-	this->getNavigationController()->setNavigationBarHidden(true, false);
+	this->getNavigationController()->setNavigationBarHidden(true,false);
 
 	//该页尺寸有问题
 
 	CCSize _bounds = this->getView()->getBounds().size;
 	CAWebView* web = CAWebView::createWithFrame(this->getView()->getBounds());
-	web->loadURL("http://langyuedianzi.taobao.com/shop/view_shop.htm?spm=a1z0k.7386009.1997989141.d4915209.r9YfhL&shop_id=34271480");
+	web->loadURL("http://h5.m.taobao.com/awp/mtb/mtb.htm?spm=0.0.0.0#!/awp/mtb/mtb.htm");
 	this->getView()->addSubview(web);
 
 	CAViewController::viewDidLoad();

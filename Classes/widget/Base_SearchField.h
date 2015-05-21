@@ -50,8 +50,8 @@ public:
 	//代理
 	virtual bool onTextFieldAttachWithIME(CATextField * sender);
 	virtual bool onTextFieldDetachWithIME(CATextField * sender);
-	virtual bool onTextFieldInsertText(CATextField * sender, const char * text, int nLen);
-	virtual bool onTextFieldDeleteBackward(CATextField * sender, const char * delText, int nLen);
+// 	virtual bool onTextFieldInsertText(CATextField * sender, const char * text, int nLen);
+// 	virtual bool onTextFieldDeleteBackward(CATextField * sender, const char * delText, int nLen);
 	virtual bool keyBoardCallBack(CATextField *sender);
 
 	virtual void CallBack_Return() { hideAllInfo();  }
