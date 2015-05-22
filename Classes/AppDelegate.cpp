@@ -1,7 +1,5 @@
 ﻿#include "AppDelegate.h"
-#include "Data_Define.h"
 #include "RootWindow.h"
-#include "DownloadManager.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate()
