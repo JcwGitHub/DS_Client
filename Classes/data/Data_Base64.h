@@ -23,24 +23,25 @@ public:
 
 	static Data_Base* GetInstance();
 
-	//搜索历史
-public:
-	void GetSearch(vector<std::string>& searchList){ searchList = m_searchList; }
-	void PushSearch(const std::string& _key);
-	void ClearSearch();
-private:
-	//默认保存
-	void SaveAndGet(bool flag = true);
-
-
-
 public:
 	//各种高度数据
 	float		m_NarBar_H;			//navbar 高度
 	float		m_TabBar_H;			//tabbar 高度
 
+	bool		m_firstLogin;			//是否首次登陆
+public:
+	//搜索历史
+	void GetSearch(vector<std::string>& searchList){ searchList = m_searchList; }
+	void PushSearch(const std::string& _key);
+	void ClearSearch();
+
+
 private:
 	bool init();
+	//默认保存
+	void SaveAndGet(bool flag = true);
+	//是否首次登陆
+	void CheckFirstLogin();
 
 private:
 	static Data_Base*	s_DataBase;

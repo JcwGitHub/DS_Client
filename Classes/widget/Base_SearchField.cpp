@@ -36,13 +36,20 @@ bool Base_SearchField::init(const CCRect& rect)
 	Base_View* _bg = Base_View::create();
 	_bg->setTag(100);
 	_bg->setZOrder(100);
-	_bg->setCenter(CCRect(rect.size.width/2,_px(98/2),rect.size.width,rect.size.height));
-	_bg->setColor(ccc4(164, 28, 28, 255));
+	_bg->setCenter(CCRect(rect.size.width/2,_px(88/2),rect.size.width,rect.size.height));
+	//_bg->setColor(ccc4(164, 28, 28, 255));
+	_bg->setColor(CAColor_red);
 	this->addSubview(_bg);
+
+	//背景线
+	Base_ImageView* _ima = Base_ImageView::creat("image/m_search1.png");
+	_ima->setFrame(CCRect(0, rect.size.height - FitY(13), rect.size.width, FitY(13)));
+	_bg->addSubview(_ima);
+
 
 	//搜索标记
 	m_logo = Base_ImageView::creat("image/m_search.png");
-	m_logo->setCenter(CCRect(0, 0, _px(30), _px(30)));
+	m_logo->setCenter(CCRect(0, 0, _px(48), _px(48)));
 	_bg->addSubview(m_logo);
 
 	//textfield
@@ -51,6 +58,7 @@ bool Base_SearchField::init(const CCRect& rect)
 	m_text->setPlaceHolder(UTF8("搜索搜索宝贝"));
 	m_text->setSpaceHolderColor(ccc4(0xfa,0xb4,0xb4,255));
 	m_text->setTextColor(CAColor_white);
+	m_text->setFontSize(_px(38));
 	m_text->setDelegate(this);
 	_bg->addSubview(m_text);
 

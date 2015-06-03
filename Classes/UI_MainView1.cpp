@@ -21,8 +21,7 @@ void UI_MainView1::viewDidLoad()
 	Base_NavBar* Bar = (Base_NavBar*)this->getNavigationController();
 	Base_SearchField* _text = Base_SearchField::Creat(CCRect(
 		Bar->GetLastContainer()->getBounds().size.width / 2,
-		Bar->GetLastContainer()->getBounds().size.height / 2, _px(410), _px(55)));
-	_text->SetSearchLogo(Base_SearchField::P_Right);
+		Bar->GetLastContainer()->getBounds().size.height / 2, _px(410), _px(68)));
 	_text->SetNavBar(Bar);
 	Bar->BarAddSubView(_text);
 
@@ -129,6 +128,7 @@ void UI_MainView1::DealData(const char* msg)
 void UI_MainView1::SetListView()
 {
 	m_listView = Base_TableView::creat(FitRect(0,202,640,1136-210-98-98));
+	m_listView->setScrollEnabled(false);
 	m_listView->setTableViewDataSource(this);
 	m_listView->setTableViewDelegate(this);
 	m_listView->setSeparatorColor(CAColor_white);
@@ -148,12 +148,9 @@ void UI_MainView1::SetRollView()
 	m_pageView = Base_PageView::creat(CCRect(_dSize.width/2,_dSize.height/2,_dSize.width,_dSize.height),
 		CAPageViewDirectionHorizontal);
 	m_pageView->SetPageViews(_temp);
-	m_pageView->SetAutoScroll(true);
+	m_pageView->OpenAutoScroll();
+	m_pageView->ShowPageTag(this->getView(), 2);
 	this->getView()->addSubview(m_pageView);
-
-
-	//添加tag
-	this->getView()->addSubview(m_pageView->GetPageTag());
 }
 
 CATableViewCell* UI_MainView1::tableCellAtIndex(CATableView* table, const CCSize& cellSize, unsigned int section, unsigned int row)

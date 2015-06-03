@@ -14,11 +14,12 @@ public:
 	//设置页数
 	void	SetPageViews(const CAVector<CAView*>& vec);
 
-	//获取page contorl
-	Base_PageTag* GetPageTag();
+	//显示 page contorl    
+	//type 0左下，1下剧中，2右下
+	void	ShowPageTag(CAView* parent,int nType);
 
 	//自动滑动
-	void	SetAutoScroll(bool flag = true);
+	void	OpenAutoScroll();
 
 	//代理
 	virtual void pageViewDidBeginTurning(CAPageView* pageView);
@@ -32,9 +33,15 @@ private:
 	void ChangePage();
 
 	void updateImage(float dt);
+
+	void SetPageTagCurrentIndex();
 private:
 	Base_PageTag*	m_pageTag;
 
+	
+
+
+	//自动展示相关
 	bool	m_autoScroll;
 
 	//前三位置

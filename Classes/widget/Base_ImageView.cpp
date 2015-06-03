@@ -96,5 +96,4 @@ void Base_ImageView::DownLoadImage()
 void Base_ImageView::DownLoadSucess()
 {
 	this->setImage(m_image);
-	//this->setContentSize(CCSizeMake(100,100));
 }

@@ -11,6 +11,8 @@
 #include "Base_ImageView.h"
 #include "Base_NavBar.h"
 #include "Base_View.h"
+#include "J_C_Platform.h"
+
 
 //data
 #include "Data_HttpManage.h"
@@ -25,7 +27,6 @@ using namespace CrossApp;
 using namespace std;
 
 
-
 //全局函数
 static inline std::string C_IntToString(int index){
 	char _Tag[8];
@@ -35,6 +36,10 @@ static inline std::string C_IntToString(int index){
 
 
 //获取屏幕大小
+static inline CCSize C_ViewSize(){
+	CAApplication* pDirector = CAApplication::getApplication();
+	return pDirector->getWinSize();
+}
 static inline CCSize C_WinSize(){
 	CAApplication* pDirector = CAApplication::getApplication();
 

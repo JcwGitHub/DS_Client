@@ -3,11 +3,12 @@
 
 #include "Data_Define.h"
 
-class UI_LeftView : public CAViewController
+class UI_LeftView : public CAViewController , public J_C_Delegate
 {
 public:
 	CREATE_FUNC(UI_LeftView);
-protected:
+	virtual void TaoBaoUserInfoUpdate();
+
 private:
 	bool init();
 };

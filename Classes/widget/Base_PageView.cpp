@@ -17,11 +17,12 @@ Base_PageView* Base_PageView::creat(const CCRect& rect, const CAPageViewDirectio
 
 bool Base_PageView::init(const CCRect& rect, const CAPageViewDirection& type)
 {
-	m_pageTag			 = NULL;
-	m_autoScroll		 = false;
-	m_nCurrPage			 = 0;
-	m_pPageViewDelegate  = NULL;
-	m_ePageViewDirection = type;
+	m_pageTag						= NULL;
+	m_autoScroll					= false;
+	m_nCurrPage					= 0;
+	m_atIndex						= 0;
+	m_pPageViewDelegate	= NULL;
+	m_ePageViewDirection	= type;
 	if (!CAPageView::initWithCenter(rect))
 	{
 		return false;
@@ -40,11 +41,18 @@ void Base_PageView::pageViewDidBeginTurning(CAPageView* pageView)
 
 void Base_PageView::pageViewDidEndTurning(CAPageView* pageView)
 {
+	if (!m_autoScroll)
+	{
+		m_atIndex = pageView->getCurrPage();
+		SetPageTagCurrentIndex();
+		return;
+	}
+
 	if (pageView->getCurrPage()==1)
 	{
 		return;
 	}
-	m_atIndex = (m_atIndex + (pageView->getCurrPage() - 1) + m_views.size()) % m_views.size();	
+	m_atIndex = (m_atIndex + (pageView->getCurrPage() - 1) + m_views.size()) % m_views.size();
 	pageView->setCurrPage(1, false);
 	ChangePage();
 }
@@ -54,25 +62,18 @@ void Base_PageView::pageViewDidSelectPageAtIndex(CAPageView* pageView, unsigned 
 	int a = 0;
 }
 
-void Base_PageView::SetAutoScroll(bool flag /*= true*/)
+void Base_PageView::OpenAutoScroll()
 {
 	//当前属性
-	m_atIndex = 0;
-	m_autoScroll = flag;
+	m_autoScroll = true;
+
 
 	this->setCurrPage(1, false);
 
 	this->ChangePage();
 
 	//开启定时器
-	if (m_autoScroll)
-	{
-		CAScheduler::schedule(schedule_selector(Base_PageView::updateImage), this, 5.0f, kCCRepeatForever,5.0f);
-	}
-	else
-	{
-
-	}
+	CAScheduler::schedule(schedule_selector(Base_PageView::updateImage), this, 5.0f, kCCRepeatForever,5.0f);
 }
 
 void Base_PageView::SetPageViews(const CAVector<CAView*>& vec)
@@ -114,10 +115,9 @@ void Base_PageView::ChangePage()
 		m_views[_op[i]]->setFrameOrigin(m_point[i]);
 	}
 
-	if (m_pageTag)
-	{
-		m_pageTag->SetCurIndex(m_atIndex);
-	}
+
+
+	SetPageTagCurrentIndex();
 }
 
 void Base_PageView::updateImage(float dt)
@@ -125,18 +125,52 @@ void Base_PageView::updateImage(float dt)
 	this->setCurrPage(2, true,true);
 }
 
-Base_PageTag* Base_PageView::GetPageTag()
+void Base_PageView::ShowPageTag(CAView* parent, int nType)
 {
-	if (!m_pageTag)
+	if (m_pageTag)
 	{
-		m_pageTag = Base_PageTag::creat(m_views.size());
-		m_pageTag->setFrameOrigin(CCPoint(
-			getCenter().size.width - m_pageTag->getFrame().size.width,
-			getCenter().size.height - m_pageTag->getFrame().size.height));
-		m_pageTag->SetCurIndex(m_atIndex);
+		return;
 	}
 
-	return m_pageTag;
+	m_pageTag = Base_PageTag::creat(m_views.size());
+	m_pageTag->setZOrder(1);
+	m_pageTag->SetCurIndex(m_atIndex);
+	parent->addSubview(m_pageTag);
+
+	switch (nType)
+	{
+	case 0:
+	{
+			  m_pageTag->setFrameOrigin(CCPoint(
+				  FitX(20),
+				  getCenter().size.height - m_pageTag->getFrame().size.height));
+	}
+		break;
+	case 1:
+	{
+			  m_pageTag->setFrameOrigin(CCPoint(
+				  getCenter().size.width / 2 - m_pageTag->getFrame().size.width/2,
+				  getCenter().size.height - m_pageTag->getFrame().size.height));
+	}
+		break;
+	case 2:
+	{
+			  m_pageTag->setFrameOrigin(CCPoint(
+				  getCenter().size.width - m_pageTag->getFrame().size.width,
+				  getCenter().size.height - m_pageTag->getFrame().size.height));
+	}
+		break;
+	default:
+		break;
+	}
+}
+
+void Base_PageView::SetPageTagCurrentIndex()
+{
+	if (m_pageTag)
+	{
+		m_pageTag->SetCurIndex(m_atIndex);
+	}
 }
 
 

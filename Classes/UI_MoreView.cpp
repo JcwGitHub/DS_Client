@@ -26,8 +26,7 @@ void UI_MoreViewContro::viewDidLoad()
 		Base_NavBar* Bar = (Base_NavBar*)this->getNavigationController();
 		m_searchText = Base_SearchField::Creat(CCRect(
 			Bar->GetLastContainer()->getBounds().size.width / 2, 
-			Bar->GetLastContainer()->getBounds().size.height / 2, _px(410), _px(55)));
-		m_searchText->SetSearchLogo(Base_SearchField::P_Right);
+			Bar->GetLastContainer()->getBounds().size.height / 2, _px(410), _px(68)));
 		m_searchText->SetNavBar(Bar);
 		m_searchText->SetSearchResultCon(this);
 		Bar->BarAddSubView(m_searchText);
@@ -230,7 +229,7 @@ CATableViewCell* UI_MoreViewContro::tableCellAtIndex(CATableView* table, const C
 		{
 			_cell = Base_Cell1::creatWith("cell1");
 			//图片尺寸
-			CCSize _size = FitSize(288, 288);
+			CCSize _size = FitSize(300, 288);
 
 
 			for (size_t i = 0; i < 2; i++)

@@ -4,7 +4,7 @@ USING_NS_CC;
 
 AppDelegate::AppDelegate()
 {
-
+	Data_Base::GetInstance();
 }
 
 AppDelegate::~AppDelegate() 

@@ -109,6 +109,7 @@ Data_Base::Data_Base()
 {
 	m_NarBar_H = 98;
 	m_TabBar_H = 98;
+	m_firstLogin = false;
 }
 Data_Base* Data_Base::GetInstance()
 {
@@ -190,11 +191,20 @@ void Data_Base::SaveAndGet(bool flag /*= true*/)
 
 bool Data_Base::init()
 {
-
-
-	//加载search数据
 	SaveAndGet(false);
+	CheckFirstLogin();
 	return true;
 }
 
+void Data_Base::CheckFirstLogin()
+{
+	std::string _path = CCFileUtils::sharedFileUtils()->getWritablePath() + "client.xml";
+	FILE * fp = NULL;
+	if ((fp = fopen(_path.c_str(), "rb"))==NULL)
+	{
+		fp = fopen(_path.c_str(), "w");
+		m_firstLogin = true;
+	}
 
+		fclose(fp);
+}

@@ -35,8 +35,7 @@ void UI_MainView2::viewDidLoad()
 	Base_NavBar* Bar = (Base_NavBar*)this->getNavigationController();
 	Base_SearchField* _text = Base_SearchField::Creat(CCRect(
 		Bar->GetLastContainer()->getBounds().size.width / 2,
-		Bar->GetLastContainer()->getBounds().size.height / 2, _px(410), _px(55)));
-	_text->SetSearchLogo(Base_SearchField::P_Right);
+		Bar->GetLastContainer()->getBounds().size.height / 2, _px(410), _px(68)));
 	_text->SetNavBar(Bar);
 	Bar->BarAddSubView(_text);
 

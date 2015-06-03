@@ -78,7 +78,9 @@ private:
 	void SetGoodsPrice(const std::string& value, int& height);
 
 	//商品售卖
-	void SetGoodsLink(const std::string& value, int& height);
+	//value   店铺连接
+	//value2 电话号码
+	void SetGoodsLink( int& height);
 
 	//商品简介
 	void SetGoodsShow(const std::string& value, int& height);
@@ -90,7 +92,7 @@ private:
 	int				m_goodId;
 
 	//商品链接
-	std::string		m_goodsLink;
+	std::string		m_goodsLink[2];
 
 	CAScrollView*	m_mainScroll;
 

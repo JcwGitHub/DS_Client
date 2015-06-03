@@ -1,5 +1,6 @@
 ﻿#include "UI_Goods.h"
 #include "Base_WebView.h"
+#include "J_C_Platform.h"
 
 
 //商品
@@ -225,8 +226,10 @@ void UI_GoodsView::CallBack_http_good(const char* msg)
 	SetGoodsPrice(_value, _height);
 
 	//商品链接
-	_json.Json_GetStrValue("shopcon", _value);
-	SetGoodsLink(_value, _height);
+	_json.Json_GetStrValue("shopcon", m_goodsLink[0]);
+	_json.Json_GetStrValue("phone", m_goodsLink[1]);
+
+	SetGoodsLink( _height);
 
 	//商品描述
 	_json.Json_GetStrValue("shopintroduce", _value);
@@ -258,13 +261,14 @@ void UI_GoodsView::CallBack_http_good(const char* msg)
 
 void UI_GoodsView::CallBack_btnCall(CAControl *sender, CCPoint pos)
 {
-
+	//联系店主
+	J_C_Platform::GetInstance()->PlatformCallPhone_DiAl(m_goodsLink[1]);
 }
 
 void UI_GoodsView::CallBack_btnBuy(CAControl *sender, CCPoint pos)
 {
 	
-	presentModalViewController(Base_WebViewController::creat(m_goodsLink),true);
+	presentModalViewController(Base_WebViewController::creat(m_goodsLink[0]),true);
 }
 void UI_GoodsView::SetScrollView(const vector<std::string>& banner,int& height)
 {
@@ -281,11 +285,9 @@ void UI_GoodsView::SetScrollView(const vector<std::string>& banner,int& height)
 	m_pageView = Base_PageView::creat(CCRect(_dSize.width / 2, _dSize.height / 2, _dSize.width, _dSize.height),
 		CAPageViewDirectionHorizontal);
 	m_pageView->SetPageViews(_temp);
-	m_pageView->SetAutoScroll(true);
+	m_pageView->OpenAutoScroll();
+	m_pageView->ShowPageTag(m_mainScroll,2);
 	m_mainScroll->addSubview(m_pageView);
-
-	//添加tag
-	m_mainScroll->addSubview(m_pageView->GetPageTag());
 }
 
 void UI_GoodsView::SetGoodsTitle(const std::string& value, int& height)
@@ -318,14 +320,13 @@ void UI_GoodsView::SetGoodsPrice(const std::string& value, int& height)
 	height += 40 + 30;
 }
 
-void UI_GoodsView::SetGoodsLink(const std::string& value, int& height)
+void UI_GoodsView::SetGoodsLink( int& height)
 {
 	Base_ImageView* _ima = Base_ImageView::creat("image/g_info_bg.png");
 	_ima->setFrame(FitRect(0, height, 640, 124));
 	m_mainScroll->addSubview(_ima);
 
 	//购买按钮
-	m_goodsLink = value;
 	CAButton* btn1 = CAButton::createWithCenter(FitRect(160,72,216,63),CAButtonTypeRoundedRect);
 	btn1->setTitleForState(CAControlStateAll,UTF8("购买"));
 	btn1->setBackGroundViewForState(CAControlStateNormal, Base_ImageView::creat("image/g_info_gm1.png"));
@@ -344,12 +345,16 @@ void UI_GoodsView::SetGoodsLink(const std::string& value, int& height)
 	btn2->addTarget(this, CAControl_selector(UI_GoodsView::CallBack_btnCall), CAControlEventTouchUpInSide);
 	_ima->addSubview(btn2);
 
-	if (value.empty())
+	if (m_goodsLink[0].empty())
 	{
 		btn1->setControlState(CAControlStateDisabled);
 	}
 
-	btn2->setControlState(CAControlStateDisabled);
+	if (m_goodsLink[1].empty())
+	{
+		btn2->setControlState(CAControlStateDisabled);
+	}
+	
 
 	//尺寸
 	height += 124;
